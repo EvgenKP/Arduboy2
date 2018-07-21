@@ -46,32 +46,33 @@
 #ifdef ARDUBOY_10
 
 #ifndef SLIMBOY
-#define PIN_CS 12       // Display CS Arduino pin number
-#define CS_PORT PORTD   // Display CS port
-#define CS_BIT PORTD6   // Display CS physical bit number
+#define PIN_CS 8       // Display CS Arduino pin number
+#define CS_PORT PORTB   // Display CS port
+#define CS_BIT PORTB0   // Display CS physical bit number
 
-#define PIN_DC 4        // Display D/C Arduino pin number
-#define DC_PORT PORTD   // Display D/C port
-#define DC_BIT PORTD4   // Display D/C physical bit number
+#define PIN_DC 10        // Display D/C Arduino pin number
+#define DC_PORT PORTB   // Display D/C port
+#define DC_BIT PORTB2   // Display D/C physical bit number
 
-#define PIN_RST 6       // Display reset Arduino pin number
-#define RST_PORT PORTD  // Display reset port
-#define RST_BIT PORTD7  // Display reset physical bit number
+#define PIN_RST 12       // Display reset Arduino pin number
+#define RST_PORT PORTB  // Display reset port
+#define RST_BIT PORTB4  // Display reset physical bit number
 #endif
 
 #ifdef SLIMBOY
-#define RED_LED 5   /**< The pin number for the red color in the RGB LED. */
-#define GREEN_LED 7 /**< The pin number for the greem color in the RGB LED. */
-#define BLUE_LED 6   /**< The pin number for the blue color in the RGB LED. */
+#define RED_LED 8   /**< The pin number for the red color in the RGB LED. */
+#define GREEN_LED 12 /**< The pin number for the greem color in the RGB LED. */
+#define BLUE_LED 10   /**< The pin number for the blue color in the RGB LED. */
 
-#define RED_LED_PORT PORTD
-#define RED_LED_BIT PORTD5
+#define RED_LED_PORT PORTB
+#define RED_LED_BIT PORTB0
 
-#define GREEN_LED_PORT PORTD
-#define GREEN_LED_BIT PORTD7
+#define GREEN_LED_PORT PORTB
+#define GREEN_LED_BIT PORTB4
 
-#define BLUE_LED_PORT PORTD
-#define BLUE_LED_BIT PORTD6
+#define BLUE_LED_PORT PORTB
+#define BLUE_LED_BIT PORTB2
+
 #else
 #define RED_LED 10   /**< The pin number for the red color in the RGB LED. */
 #define GREEN_LED 11 /**< The pin number for the greem color in the RGB LED. */
@@ -96,30 +97,30 @@
 #define A_BUTTON _BV(3)     /**< The A button value for functions requiring a bitmask */
 #define B_BUTTON _BV(2)     /**< The B button value for functions requiring a bitmask */
 
-#ifdef SLIMBOY
-#define PIN_LEFT_BUTTON 15
-#define LEFT_BUTTON_PORT PORTC
-#define LEFT_BUTTON_PORTIN PINC
-#define LEFT_BUTTON_DDR DDRC
-#define LEFT_BUTTON_BIT PORTC1
+#ifdef SLIMBOY						
+#define PIN_LEFT_BUTTON 2
+#define LEFT_BUTTON_PORT PORTD
+#define LEFT_BUTTON_PORTIN PIND
+#define LEFT_BUTTON_DDR DDRD
+#define LEFT_BUTTON_BIT PORTD2
 
-#define PIN_RIGHT_BUTTON 3
+#define PIN_RIGHT_BUTTON 6			
 #define RIGHT_BUTTON_PORT PORTD
 #define RIGHT_BUTTON_PORTIN PIND
 #define RIGHT_BUTTON_DDR DDRD
-#define RIGHT_BUTTON_BIT PORTD3
+#define RIGHT_BUTTON_BIT PORTD6
 
-#define PIN_UP_BUTTON 17
-#define UP_BUTTON_PORT PORTC
-#define UP_BUTTON_PORTIN PINC
-#define UP_BUTTON_DDR DDRC
-#define UP_BUTTON_BIT PORTC3
+#define PIN_UP_BUTTON 3				
+#define UP_BUTTON_PORT PORTD
+#define UP_BUTTON_PORTIN PIND
+#define UP_BUTTON_DDR DDRD
+#define UP_BUTTON_BIT PORTD3
 
-#define PIN_DOWN_BUTTON 2
+#define PIN_DOWN_BUTTON 5			
 #define DOWN_BUTTON_PORT PORTD
 #define DOWN_BUTTON_PORTIN PIND
 #define DOWN_BUTTON_DDR DDRD
-#define DOWN_BUTTON_BIT PORTD2
+#define DOWN_BUTTON_BIT PORTD5
 
 #define PIN_A_BUTTON 4
 #define A_BUTTON_PORT PORTD
@@ -127,11 +128,11 @@
 #define A_BUTTON_DDR DDRD
 #define A_BUTTON_BIT PORTD4
 
-#define PIN_B_BUTTON 16
-#define B_BUTTON_PORT PORTC
-#define B_BUTTON_PORTIN PINC
-#define B_BUTTON_DDR DDRC
-#define B_BUTTON_BIT PORTC2
+#define PIN_B_BUTTON 7				
+#define B_BUTTON_PORT PORTD
+#define B_BUTTON_PORTIN PIND
+#define B_BUTTON_DDR DDRD
+#define B_BUTTON_BIT PORTD7
 
 #else
 
@@ -289,9 +290,9 @@
 // ----- Pins common on Arduboy and DevKit -----
 
 // Unconnected analog input used for noise by initRandomSeed()
-#define RAND_SEED_IN A4
-#define RAND_SEED_IN_PORT PORTF
-#define RAND_SEED_IN_BIT PORTF1
+#define RAND_SEED_IN A0
+#define RAND_SEED_IN_PORT PORTC
+#define RAND_SEED_IN_BIT PORTC0
 // Value for ADMUX to read the random seed pin: 2.56V reference, ADC1
 #define RAND_SEED_IN_ADMUX (_BV(REFS0) | _BV(REFS1) | _BV(MUX0))
 

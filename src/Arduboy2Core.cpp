@@ -173,21 +173,31 @@ void Arduboy2Core::setCPUSpeed8MHz()
 void Arduboy2Core::bootPins()
 {
 #ifdef SLIMBOY
-  // Port C INPUT_PULLUP
-  PORTC |= _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
-           _BV(B_BUTTON_BIT);
-  DDRC  |= _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
-           _BV(B_BUTTON_BIT);
-  // Port D INPUT_PULLUP
-  PORTD |= _BV(RIGHT_BUTTON_BIT) |
-           _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT);
-  DDRD  |= _BV(RIGHT_BUTTON_BIT) |
-           _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT) |
-           _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
+  // **gc    // Port C INPUT_PULLUP
+  // **gc    PORTC |= _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
+  // **gc             _BV(B_BUTTON_BIT);
+  // **gc    DDRC  |= _BV(LEFT_BUTTON_BIT) | _BV(UP_BUTTON_BIT) |
+  // **gc             _BV(B_BUTTON_BIT);
+  // **gc    // Port D INPUT_PULLUP
+  // **gc    PORTD |= _BV(RIGHT_BUTTON_BIT) |
+  // **gc             _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT);
+  // **gc    DDRD  |= _BV(RIGHT_BUTTON_BIT) |
+  // **gc            _BV(DOWN_BUTTON_BIT) | _BV(A_BUTTON_BIT) |
+  // **gc             _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
 
   // switch off LEDs by default
-  PORTD |= _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
-#else
+  // **gc    PORTD |= _BV(GREEN_LED_BIT)   | _BV(BLUE_LED_BIT) | _BV(RED_LED_BIT);
+  
+  // Port D INPUT_PULLUP
+	PORTD |= _BV(LEFT_BUTTON_BIT) | _BV(RIGHT_BUTTON_BIT) |
+            _BV(UP_BUTTON_BIT) | _BV(DOWN_BUTTON_BIT) | 
+			_BV(A_BUTTON_BIT) | _BV(B_BUTTON_BIT);
+	DDRD  |= _BV(LEFT_BUTTON_BIT) | _BV(RIGHT_BUTTON_BIT) |
+            _BV(UP_BUTTON_BIT) | _BV(DOWN_BUTTON_BIT) | 
+			_BV(A_BUTTON_BIT) | _BV(B_BUTTON_BIT);
+  
+  #else
+
 #ifdef ARDUBOY_10
 
   // Port B INPUT_PULLUP or HIGH
@@ -579,14 +589,17 @@ void Arduboy2Core::flipHorizontal(bool flipped)
 void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue)
 {
 #ifdef SLIMBOY
+  (void)red;    // parameter unused
+  (void)green;  // parameter unused
+  (void)blue;   // parameter unused
   //  bitWrite(RED_LED_PORT, RED_LED_BIT, red ? RGB_ON : RGB_OFF);
-  bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, green ? RGB_ON : RGB_OFF);
+      // **gc bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, green ? RGB_ON : RGB_OFF);
   // timer 0: Fast PWM, OC0A clear on compare / set at top
   // We must stay in Fast PWM mode because timer 0 is used for system timing.
   // We can't use "inverted" mode because it won't allow full shut off.
-  TCCR0A = _BV(COM0B1) | _BV(COM0A1) | _BV(WGM01) | _BV(WGM00);
-  OCR0A = 255 - blue;
-  OCR0B = 255 - red;
+      // **gc TCCR0A = _BV(COM0B1) | _BV(COM0A1) | _BV(WGM01) | _BV(WGM00);
+      // **gc OCR0A = 255 - blue;
+      // **gc OCR0B = 255 - red;
 #elif defined(ARDUBOY_10) // RGB, all the pretty colors
   // timer 0: Fast PWM, OC0A clear on compare / set at top
   // We must stay in Fast PWM mode because timer 0 is used for system timing.
@@ -610,16 +623,19 @@ void Arduboy2Core::setRGBled(uint8_t red, uint8_t green, uint8_t blue)
 void Arduboy2Core::setRGBled(uint8_t color, uint8_t val)
 {
 #ifdef SLIMBOY
-  if (color == RED_LED) {
-    //    val = val?RGB_ON:RGB_OFF;
-    //    bitWrite(RED_LED_PORT, RED_LED_BIT, val);
-    OCR0B = 255 - val;
-  } else if (color == GREEN_LED) {
-    val = val?RGB_ON:RGB_OFF;
-    bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, val);
-  } else if (color == BLUE_LED) {
-    OCR0A = 255 - val;
-  }
+  (void)color;    // parameter unused
+  (void)val;      // parameter unused
+
+      // **gc  if (color == RED_LED) {
+      // **gc    //    val = val?RGB_ON:RGB_OFF;
+      // **gc    //    bitWrite(RED_LED_PORT, RED_LED_BIT, val);
+      // **gc    OCR0B = 255 - val;
+      // **gc  } else if (color == GREEN_LED) {
+      // **gc    val = val?RGB_ON:RGB_OFF;
+      // **gc    bitWrite(GREEN_LED_PORT, GREEN_LED_BIT, val);
+      // **gc  } else if (color == BLUE_LED) {
+       // **gc   OCR0A = 255 - val;
+       // **gc }
 #elif defined(ARDUBOY_10)
   if (color == RED_LED)
   {
@@ -645,7 +661,7 @@ void Arduboy2Core::setRGBled(uint8_t color, uint8_t val)
 void Arduboy2Core::freeRGBled()
 {
 #ifdef SLIMBOY
-  TCCR0A = _BV(WGM01) | _BV(WGM00);
+      // **gc  TCCR0A = _BV(WGM01) | _BV(WGM00);
 #else
 #ifdef ARDUBOY_10
   // clear the COM bits to return the pins to normal I/O mode
